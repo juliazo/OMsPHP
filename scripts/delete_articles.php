@@ -41,21 +41,16 @@ while ($articulo = $Q_articulos->fetch()){
 	reset($Doctosindet_data);
 	#segunda vez
 	foreach ($Doctosindet_data as $doctoindet){
-		#seleccionamos los documentos del inventario
-		$query_doctosin = "SELECT DOCTO_IN_ID FROM DOCTOS_IN WHERE DOCTO_IN_DET_ID = '{$doctoindet['DOCTO_IN_DET_ID']}'";
-		$Q_doctosin = $pdo_firebird->prepare($delete_doctosin);
-		$Q_doctosin->execute();
 
-		#borramos el detalle del inventario 
-		$delete_doctosindet = "DELETE FROM DOCTOS_IN_DET WHERE DOCTO_IN_DET_ID = '{$doctoindet['DOCTO_IN_DET_ID']}'";
-		$D_doctosindet = $pdo_firebird->prepare($delete_doctosindet);
-		$D_doctosindet->execute();
+			#borramos el detalle del inventario 
+			$delete_doctosindet = "DELETE FROM DOCTOS_IN_DET WHERE DOCTO_IN_DET_ID = '{$doctoindet['DOCTO_IN_DET_ID']}'";
+			$D_doctosindet = $pdo_firebird->prepare($delete_doctosindet);
+			$D_doctosindet->execute();
 
-		#borramos los documentos en el inventario
-		$query_doctosin = "SELECT DOCTO_IN_ID FROM DOCTOS_IN WHERE DOCTO_IN_DET_ID = '{$doctoindet['DOCTO_IN_DET_ID']}'";
-		$Q_doctosin = $pdo_firebird->prepare($delete_doctosin);
-		$Q_doctosin->execute();
-
+			#borramos los documentos en el inventario
+			$delete_doctosin = "DELETE FROM DOCTOS_IN WHERE DOCTO_IN_ID = '{$doctoindet['DOCTO_IN_ID']}'";
+			$Q_doctosin = $pdo_firebird->prepare($delete_doctosin);
+			$Q_doctosin->execute();
 	}
 
 	#************************************PUNTO DONDE EL ARTICULO YA NO TIENE INVENTARIO *********************************		
